@@ -71,25 +71,86 @@ module.exports.changeStatus = async (req,res) =>{
 }
 //[PATCH] "api/v1/tasks/change-multi/:id"
 module.exports.changeMulti = async (req,res) =>{
-    const {id, status} = req.body;
-    const listStatus = ["initial","doing","finish","pending","notFinish"];
-    if(listStatus.includes(status)){
-        await tasks.updateMany({
-            _id: {$in: id}
-        },{
-            status: status
-        })
+    const {id, type} = req.body;
 
-        res.json({
-            code: 200,
-            status: "Thay đổi trạng thái thành công"
-        })
-    }else{
-        res.json({
-            code: 400,
-            status: "Thay đổi trạng thái ko thành công "
-        })
+    switch(type){
+        case 'initial-multi':
+            await tasks.updateMany({
+                _id: {$in: id}
+            },{
+                status: "initial"
+            })
+    
+            res.json({
+                code: 200,
+                status: "Thay đổi trạng thái thành công"
+            })
+            break;
+        case 'doing-multi':
+            await tasks.updateMany({
+                _id: {$in: id}
+            },{
+                status: "doing"
+            })
+    
+            res.json({
+                code: 200,
+                status: "Thay đổi trạng thái thành công"
+            })
+            break;
+        case 'finish-multi':
+            await tasks.updateMany({
+                _id: {$in: id}
+            },{
+                status: "finish"
+            })
+    
+            res.json({
+                code: 200,
+                status: "Thay đổi trạng thái thành công"
+            })
+            break;
+        case 'pending-multi':
+            await tasks.updateMany({
+                _id: {$in: id}
+            },{
+                status: "finish"
+            })
+    
+            res.json({
+                code: 200,
+                status: "Thay đổi trạng thái thành công"
+            })
+            break;
+        case 'notFinish-multi':
+            await tasks.updateMany({
+                _id: {$in: id}
+            },{
+                status: "notFinish"
+            })
+    
+            res.json({
+                code: 200,
+                status: "Thay đổi trạng thái thành công"
+            })
+            break;
+        case 'delete-multi':
+            await tasks.updateMany({
+                _id: {$in: id}
+            },{
+                deleted: true
+            })
+    
+            res.json({
+                code: 200,
+                status: "Xóa nhiệm vụ thành công"
+            })
+            break;
+        
+        
+        
     }
+    
 }
 //[POST] "api/v1/tasks/add"
 module.exports.add = async (req,res) =>{
