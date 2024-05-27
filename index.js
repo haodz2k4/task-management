@@ -1,5 +1,9 @@
 const express = require("express");
 const app = express();
+//require body paraser
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 //dotenv 
 require('dotenv').config();
 //connect database 
