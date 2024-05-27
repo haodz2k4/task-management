@@ -5,5 +5,8 @@ router.get("/",controller.index);
 
 router.get("/detail/:id",controller.detail);
 router.patch("/change-status/:id",controller.changeStatus);
-router.patch("/change-multi",controller.changeMulti)
+router.patch("/change-multi",controller.changeMulti);
+router.post("/add",controller.add);
+router.patch("/edit/:id",controller.edit);
+router.patch("/deleted/:id",controller.deleted);
 module.exports = router;

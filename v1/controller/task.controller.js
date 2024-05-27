@@ -1,5 +1,4 @@
 const tasks = require("../../models/task.model");
-
 //[GET] "/api/v1/tasks"
 module.exports.index = async (req,res) =>{
     const find = {
@@ -89,6 +88,58 @@ module.exports.changeMulti = async (req,res) =>{
         res.json({
             code: 400,
             status: "Thay đổi trạng thái ko thành công "
+        })
+    }
+}
+//[POST] "api/v1/tasks/add"
+module.exports.add = async (req,res) =>{
+    try {
+        const record = new tasks(req.body);
+        await record.save();
+
+        res.json({
+            code: 200,
+            message: "add tasks successfull"
+        })
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "add tasks failed"
+        })
+    }
+}
+//[PATCH] "api/v1/tasks/edit/:id"
+module.exports.edit = async (req,res) =>{
+    try {
+        await tasks.updateOne({_id: req.params.id},req.body);
+
+        res.json({
+            code: 200,
+            message: "Chỉnh sửa thành công"
+        })
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Chỉnh sửa thất bại"
+        })
+    }
+}
+//[PATCH] " api/v1/tasks/deletes/:id"
+module.exports.deleted = async (req,res) =>{
+    try {
+        await tasks.updateOne({
+            _id: req.params.id
+        },{
+            deleted: true
+        })
+        res.json({
+            code: 200,
+            messgae: "deleted successfull"
+        })
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "deleted failed"
         })
     }
 }
