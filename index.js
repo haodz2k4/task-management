@@ -3,11 +3,8 @@ const app = express();
 //require core 
 const cors = require('cors');
 
-const corsOptions = {
-    origin: 'http://localhost:3000/',
-    optionsSuccessStatus: 200 
-  }
-app.use(cors(corsOptions));
+
+app.use(cors());
 //require body paraser
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));

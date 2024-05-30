@@ -28,7 +28,6 @@ module.exports.register = async (req,res) =>{
 //[POST] "/api/v1/users/login"
 module.exports.login = async (req,res) =>{
     const isExistsUser = await user.findOne({deleted: false, email: req.body.email});
-    console.log(isExistsUser);
     if(isExistsUser == null){
         res.json({
             code: 400,
@@ -102,4 +101,9 @@ module.exports.passwordOtp = async (req,res) =>{
     res.status(200).json({success: true, message: "Mã otp hợp lệ", token: infoUser.token})
 
 
+}
+//[GET] "/api/v1/users/profiles"
+module.exports.profiles = (req,res) =>{
+
+    res.status(200).json({success: true, message: "Thành công", infoUser: res.locals.infoUser})
 }
